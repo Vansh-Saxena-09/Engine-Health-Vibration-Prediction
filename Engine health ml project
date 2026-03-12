@@ -1,0 +1,47 @@
+# %%
+!pip install pandas numpy matplotlib scikit-learn --break-system-packages
+
+# %%
+import sys
+!{sys.executable} -m pip install pandas numpy matplotlib scikit-learn --break-system-packages
+
+# %%
+import pandas as pd
+
+data = pd.read_csv("vibration_dataset.csv")
+data.head()
+
+# %%
+print(data.columns)
+
+# %%
+data.head()
+data.shape
+data.columns.tolist()
+
+# %%
+X = data.drop("label", axis=1)
+y = data["label"]
+
+# %%
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+model = RandomForestClassifier()
+
+model.fit(X_train, y_train)
+
+# %%
+from sklearn.metrics import accuracy_score
+
+pred = model.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, pred))
+
+# %%
+prediction = model.predict(X_test)
+print(prediction)
+
+
